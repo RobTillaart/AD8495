@@ -11,12 +11,14 @@
 
 # AD8495
 
-Arduino library for the AD8494, AD8495, AD9496 and AD8497 thermocouple.
+Arduino library for the AD8494, AD8495, AD8496 and AD8497 thermocouple.
 
 
 ## Description
 
 **Experimental**
+
+The library is NOT tested with hardware yet.
 
 The AD8494/AD8495/AD8496/AD8497 are precision instrumentation amplifiers 
 for J and K thermocouples. The devices output 5 mV/°C output.
@@ -30,8 +32,6 @@ allowing them to interface directly to 3V3 processors like ESP32.
 They work up to 36 V, think of industrial or automotive systems.
 
 The library supports positive temperatures only.
-
-The library is NOT tested with hardware yet.
 
 
 ### Performance
@@ -130,20 +130,24 @@ Sense Pin:
 - **float getPrecision()** returns voltage LSB. Debugging.
 - **float getVoltage(int times = 1)** returns voltage as average 
 of times readings.
-- **float voltageToTemperature(float voltage)** conversion function,
-for use with external ADC.
-- **float getTemperatureC(int times = 1)** returns temperature as average 
-of times readings.
+- **float voltageToTemperatureC(float voltage)** conversion function,
+Can be used when using an external ADC to read the AD849x device.
+- **float getTemperatureC(int times = 1)** returns temperature Celsius 
+as average of times readings. 
+Larger values of times take more time and give a better precision.
+- **float getTemperatureF(int times = 1)** returns temperature Fahrenheit 
+as average of times readings. Wrapper around getTemperatureC().
 
 
 ### Offset
 
-Used to minimaly calibrate with an offset. 
+Used to calibrate a measurement with an offset **in °Celsius**.
+The effect is that the offset will be 1.8 x larger for **getTemperatureF()**.
 Can be used to make the temperature scale Kelvin by adding an offset of 273.15.
 Note that the library will still not measure below zero °C.
 
-- **void setOffset(float offset)** idem.
-- **float getOffset()** idem.
+- **void setOffset(float offset = 0)** idem, typical between -2.0 and 2.0.
+- **float getOffset()** returns set offset.
 
 
 ## Future
@@ -160,14 +164,12 @@ Note that the library will still not measure below zero °C.
 
 #### Could
 
-- add getType() ?
-- example offset
 - example external ADC e.g. ADS1115
-
 
 #### Wont
 
-- add getTemperatureF(), Fahrenheit + Kelvin?
+- add getType()
+- add getTemperatureK(), Kelvin
 
 ## Support
 

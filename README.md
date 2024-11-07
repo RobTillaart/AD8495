@@ -63,6 +63,8 @@ The library does not provide means to switch between these modi.
 
 Note the library supports only positive temperatures.
 
+See datasheet page 15, how to handle negative temperatures.
+
 
 ### Hardware
 
@@ -136,7 +138,7 @@ of times readings.
 
 ### Offset
 
-used to minimaly calibrate with an offset. 
+Used to minimaly calibrate with an offset. 
 Can be used to make the temperature scale Kelvin by adding an offset of 273.15.
 Note that the library will still not measure below zero °C.
 
@@ -159,6 +161,9 @@ Note that the library will still not measure below zero °C.
 #### Could
 
 - add getType() ?
+- example offset
+- example external ADC e.g. ADS1115
+
 
 #### Wont
 

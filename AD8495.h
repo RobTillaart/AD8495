@@ -62,10 +62,12 @@ public:
     return temp;
   };
 
+
   void setOffset(float offset)
   {
     _offset = offset;
   };
+
 
   float getOffset()
   {

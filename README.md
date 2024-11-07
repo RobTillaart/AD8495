@@ -29,10 +29,26 @@ The AD8494/AD8495/AD8496/AD8497 also work with 3 V supplies,
 allowing them to interface directly to 3V3 processors like ESP32.
 They work up to 36 V, think of industrial or automotive systems.
 
-- Supports positive temps only
-- 2°C accuracy.
+The library supports positive temperatures only.
 
-The library should work for the AD8494, AD9496 and AD8497.
+The library is NOT tested with hardware yet.
+
+
+### Performance
+
+As the device needs an **analogRead()** and a few float operations, the 
+performance depends mostly on the duration of the **analogRead()**.
+
+
+### Modi
+
+The AD849x can be configured in 2 different operational modi:
+- In measurement mode, connect sense pin to output, this is "normal" mode.
+- in setpoint mode, connect sense pin to setpoint voltage.
+
+See datasheet for details.
+
+The library does not provide means to switch between these modi.
 
 
 ### Compatibles
@@ -50,8 +66,6 @@ Note the library supports only positive temperatures.
 
 ### Hardware
 
-
-TODO
 
 ```
               TOPVIEW AD8495
@@ -88,6 +102,7 @@ Sense Pin:
 - https://github.com/RobTillaart/MAX6675
 - https://github.com/RobTillaart/MAX31850
 - https://github.com/RobTillaart/MAX31855_RT
+- https://github.com/RobTillaart/Temperature
 
 - https://www.analog.com/media/en/technical-documentation/data-sheets/ad8494_8495_8496_8497.pdf
 - https://www.analog.com/en/resources/app-notes/an-1087.html
@@ -107,15 +122,26 @@ Sense Pin:
 - **AD8496(int analogPin, int steps, float maxVoltage)** constructor.
 - **AD8497(int analogPin, int steps, float maxVoltage)** constructor.
 
-### base
+
+### Base
 
 - **float getPrecision()** returns voltage LSB. Debugging.
 - **float getVoltage(int times = 1)** returns voltage as average 
 of times readings.
 - **float voltageToTemperature(float voltage)** conversion function,
 for use with external ADC.
-- **float getTemperature(int times = 1)** returns temperature as average 
+- **float getTemperatureC(int times = 1)** returns temperature as average 
 of times readings.
+
+
+### Offset
+
+used to minimaly calibrate with an offset. 
+Can be used to make the temperature scale Kelvin by adding an offset of 273.15.
+Note that the library will still not measure below zero °C.
+
+- **void setOffset(float offset)** idem.
+- **float getOffset()** idem.
 
 
 ## Future
@@ -127,10 +153,16 @@ of times readings.
 
 #### Should
 
+- investigate transfer functions (from application notes) for 95/96/97
+- need yield(); for RTOS?
+
 #### Could
+
+- add getType() ?
 
 #### Wont
 
+- add getTemperatureF(), Fahrenheit + Kelvin?
 
 ## Support
 

@@ -6,8 +6,8 @@
 //    DATE: 2024-11-07
 // PURPOSE: Arduino library for AD8495 Thermocouple
 //     URL: https://github.com/RobTillaart/AD8495
-//
-//  supports positive temp only.
+
+
 
 #include "Arduino.h"
 
@@ -42,7 +42,7 @@ public:
     if (times < 1) times = 1;
     for (int i = 0; i < times; i++)
     {
-      sum += analogRead() * (1.0 / _steps) * _maxVoltage;
+      sum += analogRead(_apin) * (1.0 / _steps) * _maxVoltage;
     }
     return sum / times;
   };
@@ -51,13 +51,25 @@ public:
   //  for external ADC
   inline float voltageToTemperatureC(float voltage)
   {
-    return voltage * 200;
+    return voltage * _DmV;
   };
 
 
   float getTemperatureC(int times = 1)
   {
-    return voltageToTemperature(getVoltage(times));
+    float temp = getVoltage(times) * _DmV;
+    if (_offset != 0) temp += _offset;
+    return temp;
+  };
+
+  void setOffset(float offset)
+  {
+    _offset = offset;
+  };
+
+  float getOffset()
+  {
+    return _offset;
   };
 
 
@@ -65,7 +77,12 @@ protected:
   int _apin;
   int _steps;
   float _maxVoltage;
-  //  float _offset = 0;
+
+  //  degree per millivolt - investigate AN1087 if this is needed
+  float _DmV = (1.0 / 5.00e-3);
+  float _offset = 0;
+
+  //  TODO?
   //  uint8_t _type = 0;
 };
 
@@ -86,7 +103,7 @@ public:
 class AD8495 : public AD849x
 {
 public:
-  AD8494(int analogPin, int steps, float maxVoltage) 
+  AD8495(int analogPin, int steps, float maxVoltage) 
         : AD849x(analogPin, steps, maxVoltage)
   {
   };

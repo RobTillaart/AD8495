@@ -8,8 +8,11 @@ AD8495	KEYWORD1
 getPrecision	KEYWORD2
 
 getVoltage	KEYWORD2
-voltageToTemperature	KEYWORD2
+voltageToTemperatureC	KEYWORD2
 getTemperatureC	KEYWORD2
+
+setOffset	KEYWORD2
+getOffset	KEYWORD2
 
 
 # Constants (LITERAL1)

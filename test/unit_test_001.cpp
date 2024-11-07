@@ -47,17 +47,17 @@ unittest(test_constants)
 
 unittest(test_constructor)
 {
-  AD8494 ad(14, 4096, 5.0);
-  assertEqualFloat(acd.getPrecision(), 5.0/4096);
+  AD8494 ad4(14, 4096, 5.0);
+  assertEqualFloat(ad4.getPrecision(), 5.0/4096, 0.01);
 
-  AD8495 ad(14, 1023, 5.0);
-  assertEqualFloat(acd.getPrecision(), 5.0/1023);
+  AD8495 ad5(14, 1023, 5.0);
+  assertEqualFloat(ad5.getPrecision(), 5.0/1023, 0.01);
 
-  AD8496 ad(14, 1023, 3.3);
-  assertEqualFloat(acd.getPrecision(), 3.3/1023);
+  AD8496 ad6(14, 1023, 3.3);
+  assertEqualFloat(ad6.getPrecision(), 3.3/1023, 0.01);
 
-  AD8497 ad(14, 4096, 3.3);
-  assertEqualFloat(acd.getPrecision(), 3.3/4096);
+  AD8497 ad7(14, 4096, 3.3);
+  assertEqualFloat(ad7.getPrecision(), 3.3/4096, 0.01);
 }
 
 

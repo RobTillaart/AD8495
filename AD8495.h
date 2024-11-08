@@ -83,6 +83,12 @@ public:
   };
 
 
+  float getSetPointVoltage(float temperature)
+  {
+    return temperature / _DegreePerMilliVolt;
+  };
+
+
 protected:
   int   _apin;
   float _maxVoltage;

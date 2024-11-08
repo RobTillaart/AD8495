@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - add **float getTemperatureF()**
 - add default offset of 0.
 - add examples, (offset, plotter, Fahrenheit)
+- add **float getSetPointVoltage(float Temperature)** helper function
 - some optimizations
 - update readme.md
 - fix typo 9496 => 8496

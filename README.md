@@ -46,6 +46,9 @@ The AD849x can be configured in 2 different operational modi:
 - In measurement mode, connect sense pin to output, this is "normal" mode.
 - in setpoint mode, connect sense pin to setpoint voltage.
 
+In the setPoint mode the OUT voltage will drop to -Vcc if the temperature
+drops below the setpoint voltage.
+
 See datasheet for details.
 
 The library does not provide means to switch between these modi.
@@ -148,6 +151,20 @@ Note that the library will still not measure below zero °C.
 
 - **void setOffset(float offset = 0)** idem, typical between -2.0 and 2.0.
 - **float getOffset()** returns set offset.
+
+
+### SetPoint mode
+
+Read datasheet for details.
+
+In the setPoint mode the **OUT** voltage will drop to -Vcc if the temperature
+drops below the setpoint voltage which is connected to the **SENSE** pin
+
+This setPoint mode allows the AD849x to guard a defined temperature level. 
+Be aware that the accuracy is still about +-2 degrees Celsius.
+
+- **float getSetPointVoltage(float Temperature)** helper function to 
+calculate the needed setPoint voltage in milliVolts.
 
 
 ## Future
